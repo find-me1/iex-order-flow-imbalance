@@ -1,0 +1,4 @@
+*.pcap.gz
+data/raw/*.pcap.gz
+__pycache__/
+*.pyc
