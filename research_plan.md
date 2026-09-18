@@ -1,9 +1,9 @@
 # From Raw Packets to Price Signals: A Scalable Pipeline for Order-Flow Imbalance Analysis on IEX Market Data
 
-**Created By:** Anvesh Sadam, Varshitha Gangadi, Hanu Varma Pinamaraju
-**Version:** 1.0
-**Target Community of Interest:** Quant researchers/traders, market makers, and market-microstructure academics interested in whether public order-book data predicts short-term price movement
-**Date Created / Last Updated:** 2026-09-16
+**Created By:** Anvesh Sadam, Varshitha Gangadi, Hanu Varma Pinamaraju <br>
+**Version:** 1.0 <br>
+**Target Community of Interest:** Quant researchers/traders, market makers, and market-microstructure academics interested in whether public order-book data predicts short-term price movement<br>
+**Date Created / Last Updated:** 2026-09-16<br>
 **GitHub Repository:** <https://github.com/find-me1/iex-order-flow-imbalance>
 
 ---
