@@ -22,15 +22,14 @@ Phase 2 report: [`phase2_report.md`](./phase2_report.md)
 Primary dataset: IEX Historical DEEP data (full order-book depth feed).
 
 - Source: https://iextrading.com/trading/market-data/#hist-download
-- A single trading day (Sep 11, 2026) is 11 GB compressed, a raw binary
+- A single trading day (Sep 11, 2026) is 11.6 GB compressed, a raw binary
   packet capture (.pcap.gz) with 403,398,808 messages across ~8,000+ symbols.
 - Measured in-memory footprint: ~453.5 bytes per message as Python objects,
   so the full day would need ~183 GB, far beyond a laptop. Parsing took
   ~10.2 hours (~11,000 messages/s) and kept 7.87M rows for the 5 symbols.
-- Not committed to this repo due to size. See `data/raw/README.md` for
-  download instructions. A small sample is in `data/samples/`.
-- Download: <paste your Phase 1 download command here>. The pipeline expects
-  the file at `data/raw/deep_20260911.pcap.gz`.
+- Not committed (too large). Download the Sep 11, 2026 DEEP file from the
+  source link above and save it as `data/raw/deep_20260911.pcap.gz`. See
+  `data/raw/README.md`. A small sample is in `data/samples/`.
 
 ## Setup
 
@@ -57,9 +56,10 @@ First analytics (needs only `data/processed/`, ~30 s):
 python src/analytics.py             # writes results/*.csv
 ```
 
-- `results/ofi_vs_dmid_by_window.csv`: rank correlation and Theil-Sen slope (seed 42, 5,000 windows) per symbol and window (1 s, 10 s, 1 min)
-- `results/next_trade_hit_rate.csv`: next-trade side vs prior 1 s OFI, with the majority baseline
-- `results/hit_rate_by_window_and_gap.csv`: hit rate as the window shrinks, and with a gap before the trade
+- `results/window_table.csv`: rank correlation and Theil-Sen slope (seed 42, 5,000 windows) per symbol and window (1 s, 10 s, 1 min)
+- `results/direction_table.csv`: next-trade side vs prior 1 s OFI, with the majority baseline
+- `results/hit_by_window.csv`, `results/hit_by_gap.csv`: hit rate as the window shrinks and with a gap before the trade
+- other CSVs in `results/`: tables behind the EDA figures
 
 Then open `notebooks/phase2_analysis.ipynb`. It loads `data/processed/` and
 holds the EDA, first analytics and interpretation.
@@ -82,8 +82,8 @@ Random seeds: 42 for the 5,000-window sample behind the Theil-Sen fit (notebook 
 ## Project Status
 
 - [x] Phase 1: Dataset identified, verified, and research plan complete
-- [ ] Phase 2: Data cleaning and exploratory analysis at scale (in progress)
-- [ ] Phase 3: Distributed processing and modeling with Spark/Databricks
+- [x] Phase 2: Data cleaning and exploratory analysis at scale
+- [ ] Phase 3: Distributed processing and modeling with Spark/Databricks (in progress)
 
 ## Repository Structure
 
@@ -94,7 +94,7 @@ data/
   samples/     — small representative samples
   raw/         — raw pcap (not committed)
   interim/     — parsed Parquet parts (not committed, rebuilt by the pipeline)
-  processed/   — cleaned book states and trades (committed, 45 MB)
+  processed/   — cleaned book states and trades (committed, 47 MB)
 results/       — analytics tables (CSV), rebuilt by src/analytics.py
 src/           — pipeline source code
 notebooks/     — phase2_analysis.ipynb
